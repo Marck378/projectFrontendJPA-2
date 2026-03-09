@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<title>Aggiungi Attivita</title>
+</head>
+<body>
+	<nav th:insert="~{fragments/navigation :: block-navigation(${titolo})}"></nav>
+
+	<div class="container mt-3" align="center">
+		<div th:if="${errorMsg}" class="alert alert-danger" th:text="${errorMsg}"></div>
+		
+		<h2>Aggiungi Attivita all'Abbonamento</h2>
+		
+		<form class="form.content" th:action="@{saveAttivitaAbbonamento}" th:object="${params}" 
+				method="post"
+				style="width:60%; margin:auto;">
+			<input type="hidden" th:field="*{abbonamentID}">
+			<input type="hidden" th:field="*{socioID}">
+
+			<div class="mb-3">
+				<label class="form-label">Seleziona Attivita</label>
+				<select class="form-select" th:field="*{id}" required>
+					<option value="">-- Seleziona un'attivita --</option>
+					<option th:each="attivita : ${listAttivita}" 
+							th:value="${attivita.id}" 
+							th:text="${attivita.description}">
+					</option>
+				</select>
+			</div>
+			
+			<div class="mt-4" align="center">
+				<button type="submit" class="btn btn-primary">Aggiungi Attivita</button>
+				<a class="btn btn-secondary" th:href="@{/listAbbonamento(id=${socioId})}">
+					Annulla
+				</a>
+			</div>		
+		</form>	
+	</div>
+</body>
+</html>

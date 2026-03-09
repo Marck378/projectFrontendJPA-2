@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<title>Elenco Attività</title>
+</head>
+<body>
+	<nav th:insert="~{fragments/navigation :: block-navigation('Gestione Attività')}"></nav>
+
+	<div class="container mt-3" align="center">
+	
+		<div class="mb-4" align="right" style="width: 60%;">
+			<a th:href="@{/admin/createAttivita}" class="btn btn-primary">Crea nuova attività</a>
+		</div>
+
+		<table class="table table-secondary" style="width: 60%; text-align: center">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Descrizione</th>
+					<th>Azioni</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="att : ${listAttivita}">
+					<td align="center">[[${att.id}]]</td>
+					<td align="center">[[${att.description}]]</td>
+					<td align="center">
+						<a th:href="@{/admin/updateAttivita(id=${att.id}, description=${att.description})}" class="btn btn-sm btn-warning">
+							Modifica
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

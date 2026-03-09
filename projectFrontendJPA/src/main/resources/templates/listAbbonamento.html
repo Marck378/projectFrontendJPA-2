@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<title>List Abbonamento</title>
+</head>
+<body>
+	<nav th:insert="~{fragments/navigation :: block-navigation(${titolo})}"></nav>
+
+
+	<div class="conatainer mt-3" align="center">
+	<div class="col-md-6">
+		<table class="table table-secondary">
+			<thead>
+				<tr >
+					<th>Data inscrizione</th> 
+					<th>Attivita</th>
+					<th>
+						<a th:href="@{createAbbonamento(id=${socio.id})}" 
+								class="btn btn-primary">Nuovo abbonamento</a>
+					</th>
+				</tr>		
+			</thead>
+			<tbody>
+				<tr th:each="abb : ${socio.abbonamento}">
+					<td>
+						<a th:href="@{removeAbbonamento(abbonamentoId=${abb.id}, socioId=${socio.id})}"
+								onclick="return confirm('Sei sicuro de vlore rimuovere questo abbonamento?')">
+							<span  th:text="${#temporals.format(abb.dataIscrizione, 'dd/MM/yyyy')}"> Data iscrizione</span>
+						</a>
+					</td>
+					<td>
+						<li th:each="att : ${abb.attivita}">
+							<a th:href="@{removeAttivitaAbbonamento(abbonamentoId=${abb.id},attivitaId=${att.id}, socioId=${socio.id})}"
+								onclick="return confirm('Sei sicuro de vlore rimuovere questa attività?')">
+								<span th:text="${att.description}"></span>
+							</a>
+						</li>
+						<a th:href="@{aggiungiAttivita(socioId=${socio.id},abbonamentoId=${abb.id})}"
+								class="btn btn-primary">Nuova attivita</a>
+					</td>
+				</tr>	
+			
+			
+			</tbody>	
+		</table>
+	</div>
+	</div>
+</body>
+</html>
