@@ -7,27 +7,32 @@
 <title>Login</title>
 </head>
 <body>
+<body>
+		<nav class="navbar navbar-expand-lg bg-body-tertiary">
+		  <div class="container-fluid">
+		    <a class="navbar-brand" 
+		    	href="https://www.betacom.it/betacom-academy/">Centro Sportivo</a>
+		   </div>
+		 </nav>
+		 <form th:action="@{login}" method="post">
+		 <div align="center" class="row mb-4">
+		 	<h1>Login</h1>
+		 	<div th:if="${param.error}" style="color:red" class="mb-4">Invalid username password</div>
 
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="https://www.betacom.it/betacom-academy/">Centro Sportivo</a>
-        </div>
-    </nav>
-    
-    <form th:action="@{/login}" method="post" align="center" class="row mb-4">
-        <h1>Login</h1>
-        <div th:if="${param.error}" style="color:red" class="mb-4">Invalid username password</div>
-        
-        <div>
-            <input type="text" name="username" class="form-control" placeholder="user name" />
-        </div>
-        <div>
-            <input type="password" name="password" class="form-control" placeholder="password" />
-        </div>
-        <div>
-            <input type="submit" class="btn btn-success" value="sign in" />
-        </div>
-    </form>
+		 	<div>
+		 		<input type="text" name="username" class="form-text" placeholder="user name" />		 
+		 	</div>		 
+		 	<div>
+		 		<input type="password" name="password" class="form-text" placeholder="Password" />		 
+		 	</div>		 
+		 
+		 	<div>
+		 		<input type="submit" class="btn btn-sucess" value="Sign in"/> 	 
+		 	</div>		 
+		 </div>
+		 
+		 </form>
+
 
 </body>
 </html>

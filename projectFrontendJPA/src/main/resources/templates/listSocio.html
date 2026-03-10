@@ -10,7 +10,7 @@
 	<nav th:insert="~{fragments/navigation :: block-navigation('Elenco soci')}"></nav>
 
 
-	<div class=" mt-3" align="center">
+	<div class="container-fluid mt-3" align="center">
 
 		<form th:action="@{listSocio}" th:object="${param}"
 		      method="get"
@@ -64,15 +64,14 @@
 			<td align="center">[[${socio.email}]]</td>
 			<td align="center">[[${socio.codiceFiscale}]]</td>
 			<td align="center" class="noselect">
- 				<a th:href="${socio.certificato == null} ? @{createCertificato(id=${socio.id})} : @{updateCertificato(id=${socio.certificato.id})}">
+ 				<a th:href="(${socio.certificato} == null) ? @{createCertificato(id=${socio.id})} : @{updateCertificato(id=${socio.certificato.id})}">	
 					<span th:text="(${socio.certificato} != null) ? (${socio.certificato.tipo} ? 'agonistico' : 'normale' ) : 'senza'"></span>
 				</a>
 			</td>
 			<td align="center" class="noselect">
 				<a th:href="@{listAbbonamento(id=${socio.id})}">
-					<span th:text="${socio.abbonamento != null and !#lists.isEmpty(socio.abbonamento)} ? 'abbonamenti attivi' : 'senza abbonamento'"></span>
-				</a>
-			</td>
+				<span th:text="${socio.abbonamento != null and !#lists.isEmpty(socio.abbonamento)} ? 'abbonamenti attivi' : 'senza abbonamento'"></span>	
+				</td>			
 		</tr>
 		</tbody>
 	</table>
