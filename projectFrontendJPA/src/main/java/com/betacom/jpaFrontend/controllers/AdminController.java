@@ -28,25 +28,24 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/admin")
 public class AdminController {
 
-	private final WebClient webclient; // Collegamento al backend
-	
-	// 1. MOSTRA LA LISTA
+	private final WebClient webclient;
+
 	@GetMapping("/listAttivita")
 	public ModelAndView listAttivita() {
 		ModelAndView mav = new ModelAndView("admin/listAttivita");
 		
-		// Chiamata al backend per avere tutte le attività
+
 		List<AttivitaDTO> att = webclient.get()
 				 .uri(uriBuilder -> uriBuilder.path("attivita/list").build())
 				 .retrieve()
 				 .bodyToMono(new ParameterizedTypeReference<List<AttivitaDTO>>() {})
 				 .block();
 		
-		mav.addObject("listAttivita", att); // Mettiamo la lista nella "scatola"
+		mav.addObject("listAttivita", att); 
 		return mav;
 	}
 	
-	// 2. FORM NUOVA ATTIVITÀ
+
 	@GetMapping("/createAttivita")
 	public ModelAndView createAttivita(Model model) {
 		ModelAndView mav = new ModelAndView("admin/createAttivita");
@@ -56,8 +55,7 @@ public class AdminController {
 		model.addAttribute("titolo", "Creazione nuova attività");
 		return mav;
 	}
-	
-	// 3. FORM MODIFICA ATTIVITÀ
+
 	@GetMapping("/updateAttivita")
 	public ModelAndView updateAttivita(@RequestParam(required = true) Integer id, @RequestParam(required = true) String description, Model model) {
 		ModelAndView mav = new ModelAndView("admin/createAttivita");
@@ -73,7 +71,6 @@ public class AdminController {
 		return mav;
 	}
 
-	// 4. SALVA NEL DATABASE (Creazione o Modifica)
 	@PostMapping("/saveAttivita")
 	public String saveAttivita(@ModelAttribute("attivita") AttivitaReq req, RedirectAttributes ra) {
 		String operation = (req.getId() == null) ? "create" : "update";
@@ -94,7 +91,6 @@ public class AdminController {
 		return "redirect:/admin/listAttivita";
 	}
 	
-	// 5. ELIMINA ATTIVITÀ
 	@GetMapping("/removeAttivita")
 	public String removeAttivita(@RequestParam(required = true) Integer id) {
 		Resp resp = webclient.delete()
